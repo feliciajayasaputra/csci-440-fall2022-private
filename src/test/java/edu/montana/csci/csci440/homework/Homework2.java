@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Homework2 extends DBTest {
@@ -16,7 +17,14 @@ public class Homework2 extends DBTest {
      */
     public void createTracksPlusView(){
         //TODO fill this in
-        executeDDL("CREATE VIEW tracksPlus");
+
+
+        executeDDL("CREATE VIEW tracksPlus AS SELECT tracks.*, artists.Name as ArtistName, tracks.Name as TracksName, albums.Title as AlbumTitle, genres.Name as GenreName FROM tracks\n" +
+                "JOIN albums ON tracks.AlbumId = albums.AlbumId\n" +
+                "JOIN artists ON albums.ArtistId = artists.ArtistId\n" +
+                "JOIN genres ON tracks.GenreId = genres.GenreId;");
+
+
 
         List<Map<String, Object>> results = executeSQL("SELECT * FROM tracksPlus ORDER BY TrackId");
         assertEquals(3503, results.size());
@@ -29,15 +37,15 @@ public class Homework2 extends DBTest {
     /*
      * Create a table grammy_infos to track grammy information for an artist.  The table should include
      * a reference to the artist, the album (if the grammy was for an album) and the song (if the grammy was
-     * for a song).  There should be a string column indicating if the artist was nominated or won.  Finally,
+     * for a song).  There should be a string column indicating if the artist was nominated or won. Finally,
      * there should be a reference to the grammy_category table
      *
      * Create a table grammy_category
      */
     public void createGrammyInfoTable(){
         //TODO fill these in
-        executeDDL("create table grammy_categories");
-        executeDDL("create table grammy_infos");
+        executeDDL("create table grammy_categories(GrammyCategoryId INTEGER PRIMARY KEY, Name STRING);");
+        executeDDL("create table grammy_infos(ArtistId INTEGER, AlbumId INTEGER, TrackId INTEGER, GrammyCategoryId INTEGER, Status STRING);");
 
         // TEST CODE
         executeUpdate("INSERT INTO grammy_categories(Name) VALUES ('Greatest Ever');");
@@ -61,7 +69,11 @@ public class Homework2 extends DBTest {
         Integer before = (Integer) executeSQL("SELECT COUNT(*) as COUNT FROM genres").get(0).get("COUNT");
 
         //TODO fill this in
-        executeUpdate("INSERT");
+        executeUpdate("INSERT INTO genres(GenreId, Name) VALUES (26, 'lala')" +
+                "INSERT INTO genres(GenreId, Name) VALUES ()" +
+                "INSERT INTO genres(GenreId, Name) VALUES ()" +
+                "INSERT INTO genres(GenreId, Name) VALUES ()" +
+                "INSERT INTO genres(GenreId, Name) VALUES ()");
 
         Integer after = (Integer) executeSQL("SELECT COUNT(*) as COUNT FROM genres").get(0).get("COUNT");
         assertEquals(before + 5, after);
