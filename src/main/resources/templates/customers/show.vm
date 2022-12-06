@@ -26,6 +26,8 @@
         <td>Rep</td>
         <td><a href="/employees/$!customer.SupportRepId">$!customer.SupportRep.Email</a> </td>
     </tr>
+
+
     </tbody>
 </table>
 
@@ -33,4 +35,74 @@
 <a href="/customers/$customer.CustomerId/delete">[Delete Customer]</a>
 
 
+<h4>Invoices</h4>
+
+<table>
+    <thead>
+    <tr>
+        <th>Invoice ID</th>
+        <th>Billing Address</th>
+        <th>Billing City</th>
+        <th>Billing State</th>
+        <th>Billing Country</th>
+        <th>Billing Postal Code</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+        #foreach( $item in $customer.Invoices )
+        <tr>
+            <td><a href="/invoices/$item.InvoiceId">$item.InvoiceId</a></td>
+            <td>$!item.BillingAddress</td>
+            <td>$!item.BillingCity</td>
+            <td>$!item.BillingState</td>
+            <td>$!item.BillingCountry</td>
+            <td>$!item.BillingPostalCode</td>
+            <td>$!item.Total</td>
+        </tr>
+        #end
+        $web.pagingWidget($customer.Invoices)
+    </tbody>
+</table>
+
 #parse('templates/footer.vm')
+
+
+<!--<h4>Invoices</h4>
+<table>
+    <thead>
+    <tr>
+        <th>InvoiceId</th>
+        <th>CustomerId</th>
+        <th>InvoiceDate</th>
+        <th>BillingAddress</th>
+        <th>BillingCity</th>
+        <th>BillingState</th>
+        <th>BillingCountry</th>
+        <th>BillingPostalCode</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+        ###foreach( $item in $customer.Invoices )
+        <tr>
+            ##<td>$!item.InvoiceId</td>
+            ##<td>$!item.CustomerId</td>
+            ##<td>$!item.InvoiceDate</td>
+            ##<td>$!item.BillingAddress</td>
+            ##<td>$!item.BillingCity</td>
+            ##<td>$!item.BillingState</td>
+            ##<td>$!item.BillingCountry</td>
+            ##<td>$!item.BillingPostalCode</td>
+            ##<td>$!item.Total</td>
+
+        </tr>
+        ###end
+        ##$web.pagingWidget($customer.Invoices)
+    </tbody>
+
+
+</table>-->
+
+
+

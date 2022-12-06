@@ -1,6 +1,7 @@
 package edu.montana.csci.csci440.homework;
 
 import edu.montana.csci.csci440.DBTest;
+import org.eclipse.jetty.io.ManagedSelector;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -9,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class Homework1 extends DBTest {
 
+
+
     @Test
     /*
      * Write a query in the string below that returns all artists that have an 'A' in their name
@@ -16,6 +19,7 @@ public class Homework1 extends DBTest {
     void selectArtistsWhoseNameHasAnAInIt(){
         List<Map<String, Object>> results = executeSQL("SELECT * FROM artists WHERE name LIKE '%A%'");
         assertEquals(211, results.size());
+
     }
 
     @Test

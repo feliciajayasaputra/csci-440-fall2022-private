@@ -76,4 +76,6 @@ public class ArtistTest extends DBTest {
         assertEquals(newName, Artist.find(1).getName());
     }
 
+
+
 }

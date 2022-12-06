@@ -16,7 +16,7 @@ public class PlaylistsTest extends DBTest {
     }
 
     @Test
-    void testPlaylistFieldsLoad() {
+    void testPlaylistFieldsLoad() {  // get how many tracks is in the playlist
         Playlist c = Playlist.find(3);
         assertEquals("TV Shows", c.getName());
         assertEquals(213, c.getTracks().size());

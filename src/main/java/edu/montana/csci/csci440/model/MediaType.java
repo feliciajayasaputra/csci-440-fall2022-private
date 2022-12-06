@@ -1,7 +1,6 @@
 package edu.montana.csci.csci440.model;
 
 import edu.montana.csci.csci440.util.DB;
-import org.eclipse.jetty.http.MetaData;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,6 +42,21 @@ public class MediaType extends Model {
                 resultList.add(new MediaType(results));
             }
             return resultList;
+        } catch (SQLException sqlException) {
+            throw new RuntimeException(sqlException);
+        }
+    }
+
+    public static MediaType find(long i) {
+        try (Connection conn = DB.connect();
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM media_types WHERE MediaTypeId=?")) {
+            stmt.setLong(1, i);
+            ResultSet results = stmt.executeQuery();
+            if (results.next()) {
+                return new MediaType(results);
+            } else {
+                return null;
+            }
         } catch (SQLException sqlException) {
             throw new RuntimeException(sqlException);
         }
